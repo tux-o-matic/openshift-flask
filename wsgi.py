@@ -1,4 +1,6 @@
 from flask import Flask
+import socket
+
 application = Flask(__name__)
 
 @application.route("/")
@@ -7,7 +9,7 @@ def hello():
     
 @application.route("/status")
 def hello():
-    return "I'm alive"
+    return "I'm alive on " + str(socket.gethostbyname(socket.gethostname()))
 
 if __name__ == "__main__":
     application.run()
