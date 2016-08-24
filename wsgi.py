@@ -8,7 +8,7 @@ def hello():
     return "Hello World!"
     
 @application.route("/status")
-def hello():
+def status():
     return "I'm alive on " + str(socket.gethostbyname(socket.gethostname()))
 
 if __name__ == "__main__":
