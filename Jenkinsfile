@@ -1,6 +1,6 @@
 node('agent'){
-  stage 'Build'
-  echo 'built'
+  stage 'Checkout Code'
+  checkout scm
   
   stage 'Test'
   echo 'tested'
