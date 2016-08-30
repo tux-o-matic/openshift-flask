@@ -24,8 +24,6 @@ objects:
     name: flask-sandbox-pipeline
     labels:
       app: flask-sandbox
-    annotations:
-      pipeline.alpha.openshift.io/uses: '[{"name": "flask-sandbox-dev", "namespace": "", "kind": "DeploymentConfig"},{"name": "flask-sandbox-test", "namespace": "", "kind": "DeploymentConfig"},{"name": "flask-sandbox-prod", "namespace": "", "kind": "DeploymentConfig"}]'
   spec:
     triggers:
       -
