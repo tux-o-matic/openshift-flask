@@ -1,4 +1,4 @@
-node('agent'){
+node('master'){
   def k8s_namespace = readFile '/var/run/secrets/kubernetes.io/serviceaccount/namespace'
   
   stage 'Checkout Code'
