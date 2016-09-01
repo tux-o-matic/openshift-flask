@@ -1,4 +1,3 @@
-import pylint
 import unittest
 
 
