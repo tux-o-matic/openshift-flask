@@ -6,12 +6,17 @@ import unittest
 class FlaskTestCase(unittest.TestCase):
 
     def setUp(self):
-        print('Unit Test ENV variables set')
-        for key in os.environ.keys():
-            print(key + ' = ' + os.environ[key])
+        pass
 
     def tearDown(self):
         pass
+    
+    def test_env(self):
+        print('Unit Test ENV variables set')
+        envs = os.environ.keys()
+        for key in envs:
+            print(key + ' = ' + os.environ[key])
+        self.assertGreater(len(envs), 0)
 
 
 if __name__ == '__main__':
