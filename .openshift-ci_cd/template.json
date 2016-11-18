@@ -53,6 +53,43 @@
       }
     },
     {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${APP_NAME}-pipeline",
+        "labels": {
+          "application": "${APP_NAME}"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "GitHub",
+            "github": {
+              "secret": "${GITHUB_WEBHOOK_SECRET}" 
+            }
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "source": {
+          "type": "Git",
+          "git": {
+            "uri": "${GIT_URL}",
+            "ref": "${GIT_BRANCH}"
+          }
+        },
+        "strategy": {
+          "type": "JenkinsPipeline",
+          "jenkinsPipelineStrategy": {
+            "jenkinsfilePath": "${JENKINSFILE_PATH}"
+          }
+        },
+        "runPolicy": "Serial"
+      }
+    },
+    {
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
@@ -230,6 +267,17 @@
       "displayName": "GIT repository URL",
       "description": "URL of GIT repository to checkout code from",
       "required": true
+    },
+    {
+      "name": "GITHUB_WEBHOOK_SECRET",
+      "displayName": "GitHub webhooks secret",
+      "description": "The secret used to make the webhook URL unique and hard to predict"
+    },
+    {
+      "name": "JENKINSFILE_PATH",
+      "displayName": "Jenkinsfile path in the repo",
+      "description": "The path and name of the Jenkinsfile within the Git repository",
+      "value": ".openshift-ci_cd/Jenkinsfile"
     }
   ]
 }
