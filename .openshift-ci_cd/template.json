@@ -141,10 +141,6 @@
                   {
                     "containerPort": 80,
                     "protocol": "TCP"
-                  },
-                  {
-                    "containerPort": 443,
-                    "protocol": "TCP"
                   }
                 ],
                 "imagePullPolicy": "Always"
@@ -190,13 +186,7 @@
             "name": "http",
             "protocol": "TCP",
             "port": 80,
-            "targetPort": 80
-          },
-          {
-            "name": "https",
-            "protocol": "TCP",
-            "port": 443,
-            "targetPort": 443
+            "targetPort": 8080
           }
         ],
         "selector": {
