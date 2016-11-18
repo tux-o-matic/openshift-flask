@@ -1,0 +1,234 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "${APP_NAME}",
+    "annotations": {
+      "descriptions": "Flask webapp on Python 2.7"
+    }
+  },
+  "objects": [
+    {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${APP_NAME}",
+        "labels" {
+          "application": "${APP_NAME}"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ImageChange"
+          },
+          {
+            "type: "ConfigChange"
+          }
+        ],
+        "strategy": {
+          "type": "Source",
+          "sourceStrategy": {
+            "from": {
+              "kind": "ImageStreamTag",
+              "namespace": "openshift",
+              "name": "python:2.7"
+            }
+          }
+        }
+        "runPolicy": "Serial",
+        "source": {
+          "type": "Git",
+          "git": {
+            "uri": "${GIT_URI}",
+            "ref": "${GIT_BRANCH}"
+          }
+        },
+        "output": {
+          "to": {
+            "kind": "ImageStreamTag",
+            "name": "${OUTPUT_IMAGESTREAM_TAG}"
+          }
+        }
+      }
+    },
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${APP_NAME}",
+        "labels" {
+          "application": "${APP_NAME}"
+        }
+      },
+      "spec": {
+        "tags": [
+          {
+            "name": "build"
+          },
+          {
+            "name": "stage",
+            "from": {
+              "kind": "ImageStreamTag",
+              "name": "build"
+            }
+          },
+          {
+            "name": "prod",
+            "from": {
+              "kind": "ImageStreamTag",
+              "name": "build"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${APP_NAME}",
+        "labels" {
+          "application": "${APP_NAME}"
+        }
+      },
+      "spec": {
+        "strategy": {
+          "type": "Rolling",
+          "rollingParams": {
+            "updatePeriodSeconds": 1,
+            "intervalSeconds": 1,
+            "timeoutSeconds": 600,
+            "maxUnavailable": "25%",
+            "maxSurge": "25%"
+          }
+        },
+        "triggers": [
+          "type": "ImageChange",
+          "imageChangeParams": {
+            "automatic": true,
+            "containerNames": [
+              "${APP_NAME}"
+            ],
+            "from": {
+              "kind": "ImageStreamTag",
+              "name": "${APP_NAME}:latest"
+            }
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "test": false,
+        "selector": {
+          "name": "${APP_NAME}"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "${APP_NAME}"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "${APP_NAME}".
+                "image": "",
+                "ports": [
+                  {
+                    "containerPort": 80,
+                    "protocol": "TCP
+                  },
+                  {
+                    "containerPort": 443,
+                    "protocol": "TCP
+                  }
+                ],
+                "imagePullPolicy": "Always"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${APP_NAME}",
+        "labels" {
+          "application": "${APP_NAME}"
+        }
+      },
+      "spec": {
+        "host": "",
+        "to": {
+          "kind": "Service",
+          "name": "$APP_NAME",
+          "weight": 100
+        },
+        "port": {
+          "targetPort": "http"
+        }
+      }
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${APP_NAME}",
+        "labels" {
+          "application": "${APP_NAME}"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 80
+          },
+          {
+            "name": "https",
+            "protocol": "TCP",
+            "port": 443,
+            "targetPort": 443
+          }
+        ],
+        "selector": {
+          "name": "${APP_NAME}"
+        },
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "APP_NAME",
+      "displayName": "Application name",
+      "description": "Application service name",
+      "required": true
+    },
+    {
+      "name": "GIT_BRANCH",
+      "displayName": "GIT source branch",
+      "description": "Branch to checkout code from",
+      "value": "master"
+    },
+    {
+      "name": "GIT_URL",
+      "displayName": "GIT repository URL",
+      "description": "URL of GIT repository to checkout code from",
+      "required": true
+    },
+    {
+      "name": "OUTPUT_IMAGESTREAM_TAG",
+      "displayName": "Output ImageStream",
+      "description": "ImageStream created as a result of the build",
+      "value": "latest"
+    }
+  ]
+}
