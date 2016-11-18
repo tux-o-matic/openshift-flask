@@ -47,7 +47,7 @@
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "${OUTPUT_IMAGESTREAM_TAG}"
+            "name": "${APP_NAME}:latest"
           }
         }
       }
@@ -225,12 +225,6 @@
       "displayName": "GIT repository URL",
       "description": "URL of GIT repository to checkout code from",
       "required": true
-    },
-    {
-      "name": "OUTPUT_IMAGESTREAM_TAG",
-      "displayName": "Output ImageStream",
-      "description": "ImageStream created as a result of the build",
-      "value": "latest"
     }
   ]
 }
