@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "${APP_NAME}",
+    "name": "flask-app",
     "annotations": {
       "descriptions": "Flask webapp on Python 2.7"
     }
