@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask.ext.restful import Api, Resource, fields, marshal_with
 from flask_restful_swagger import swagger
 import socket
@@ -12,8 +12,8 @@ api = swagger.docs(Api(application), apiVersion='0.1',
                    api_spec_url='/api/spec', description='API Spec')
 
 @application.route("/")
-def hello():
-    return "Hello World!"
+def index():
+    return render_template('index.html', title='Home')
     
 @application.route("/status")
 def status():
