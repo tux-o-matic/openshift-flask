@@ -1,20 +1,11 @@
-node{
-  def k8s_namespace = readFile '/var/run/secrets/kubernetes.io/serviceaccount/namespace'
-  
+node {
   stage 'Checkout Code'
   checkout scm
   
-  stage 'Prepare Deployment'
-  sh 'oc login https://kubernetes.default/ --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token) --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt'
+  stage 'Build'
+  openshiftBuild(buildConfig: 'flask-demo', showBuildLogs: 'true')
   
-  stage 'Build Image'
-  echo 'built'
-
   stage 'Deploy'
-  echo 'deployed'
-  
-  stage 'Test'
-  echo 'tested'
-  
+  openshiftDeploy(deploymentConfig: 'flask-demo')
 }
 
