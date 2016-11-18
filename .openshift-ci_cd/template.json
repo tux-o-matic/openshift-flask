@@ -40,7 +40,7 @@
         "source": {
           "type": "Git",
           "git": {
-            "uri": "${GIT_URI}",
+            "uri": "${GIT_URL}",
             "ref": "${GIT_BRANCH}"
           }
         },
