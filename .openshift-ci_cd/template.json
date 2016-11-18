@@ -167,7 +167,7 @@
         "host": "",
         "to": {
           "kind": "Service",
-          "name": "$APP_NAME",
+          "name": "${APP_NAME}",
           "weight": 100
         },
         "port": {
