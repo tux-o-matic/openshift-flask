@@ -251,7 +251,9 @@
     {
       "name": "GITHUB_WEBHOOK_SECRET",
       "displayName": "GitHub webhooks secret",
-      "description": "The secret used to make the webhook URL unique and hard to predict"
+      "description": "The secret used to make the webhook URL unique and hard to predict",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "JENKINSFILE_PATH",
