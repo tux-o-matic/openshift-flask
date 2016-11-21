@@ -93,9 +93,9 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APP_NAME}",
+        "name": "flask-app",
         "labels": {
-          "application": "${APP_NAME}"
+          "application": "flask-app"
         }
       }
     },
