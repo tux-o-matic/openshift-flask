@@ -6,6 +6,6 @@ node {
   openshiftBuild(buildConfig: 'flask-super-app', showBuildLogs: 'true')
   
   stage 'Deploy'
-  openshiftDeploy(deploymentConfig: 'flask-demo')
+  openshiftDeploy(deploymentConfig: 'flask-super-app')
 }
 
