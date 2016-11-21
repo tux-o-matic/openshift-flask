@@ -245,6 +245,7 @@
       "name": "GIT_URL",
       "displayName": "GIT repository URL",
       "description": "URL of GIT repository to checkout code from",
+      "value": "https://github.com/tux-o-matic/os-sample-python",
       "required": true
     },
     {
