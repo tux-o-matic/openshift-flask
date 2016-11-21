@@ -3,7 +3,7 @@ node {
   checkout scm
   
   stage 'Build'
-  openshiftBuild(buildConfig: 'flask-demo', showBuildLogs: 'true')
+  openshiftBuild(buildConfig: 'flask-super-app', showBuildLogs: 'true')
   
   stage 'Deploy'
   openshiftDeploy(deploymentConfig: 'flask-demo')
