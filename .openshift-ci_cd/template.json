@@ -97,27 +97,6 @@
         "labels": {
           "application": "${APP_NAME}"
         }
-      },
-      "spec": {
-        "tags": [
-          {
-            "name": "build"
-          },
-          {
-            "name": "stage",
-            "from": {
-              "kind": "ImageStreamTag",
-              "name": "build"
-            }
-          },
-          {
-            "name": "prod",
-            "from": {
-              "kind": "ImageStreamTag",
-              "name": "build"
-            }
-          }
-        ]
       }
     },
     {
