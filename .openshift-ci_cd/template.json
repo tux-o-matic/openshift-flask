@@ -47,7 +47,7 @@
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "${APP_NAME}:latest"
+            "name": "flask-app:latest"
           }
         }
       }
@@ -129,7 +129,7 @@
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "${APP_NAME}:latest"
+                "name": "flask-app:latest"
               }
             } 
           },
