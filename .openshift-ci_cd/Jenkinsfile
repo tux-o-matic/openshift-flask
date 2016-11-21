@@ -2,6 +2,9 @@ node {
   stage 'Checkout Code'
   checkout scm
   
+  stage 'Code Syntax Validation'
+  sh 'python -m py_compile wsgi.py'
+  
   stage 'Build'
   openshiftBuild(buildConfig: 'flask-super-app', showBuildLogs: 'true')
   
