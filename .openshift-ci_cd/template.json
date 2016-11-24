@@ -276,7 +276,7 @@
     {
       "name": "GUNICORN_THREADS",
       "displayName": "Gunicorn worker threads",
-      "description": "Run each worker with the specified number of threads"
+      "description": "Run each worker with the specified number of threads",
       "value": "1"
     },
     {
