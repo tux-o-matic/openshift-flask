@@ -156,6 +156,20 @@
                     "protocol": "TCP"
                   }
                 ],
+                "env": [
+                  {
+                    "name": "GUNICORN_PROCESSES",
+                    "value": "${GUNICORN_PROCESSES}"
+                  },
+                  {
+                    "name": "GUNICORN_THREADS",
+                    "value": "${GUNICORN_THREADS}"
+                  },
+                  {
+                    "name": "GUNICORN_WORKER_CLASS",
+                    "value": "${GUNICORN_WORKER_CLASS}"
+                  }
+                ],
                 "readinessProbe": {
                   "httpGet": {
                     "path": "/status",
@@ -252,6 +266,23 @@
       "description": "The secret used to make the webhook URL unique and hard to predict",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "GUNICORN_PROCESSES",
+      "displayName": "Gunicorn worker processes",
+      "description": "The number of Gunicorn worker processes for handling requests",
+      "value": "3"
+    },
+    {
+      "name": "GUNICORN_THREADS",
+      "displayName": "Gunicorn worker threads",
+      "description": "Run each worker with the specified number of threads"
+      "value": "1"
+    },
+    {
+      "name": "GUNICORN_WORKER_CLASS",
+      "displayName": "Gunicorn worker class",
+      "value": "gevent"
     },
     {
       "name": "JENKINSFILE_PATH",
