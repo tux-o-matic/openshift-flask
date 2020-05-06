@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flask.ext.restful import Api, Resource, fields, marshal_with
+from flask_restful import Api, Resource, fields, marshal_with
 from flask_restful_swagger import swagger
 import socket
 
