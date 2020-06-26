@@ -18,6 +18,10 @@ def index():
 @application.route("/status")
 def status():
     return "I'm alive on " + str(socket.gethostbyname(socket.gethostname()))
+  
+@application.route("/metrics")
+def metrics():
+    return 'flask{host="' + str(socket.gethostbyname(socket.gethostname())) + '",} 0.0'
 
 if __name__ == "__main__":
     application.run()
