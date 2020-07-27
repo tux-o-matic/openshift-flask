@@ -12,7 +12,7 @@ config = Config(config={'sampler': {'type': 'const', 'param': 1},
                                 'logging': True,
                                 'local_agent':
                                 {'reporting_host': getenv('JAEGER_HOST', 'localhost')}},
-                service_name=__name__)
+                service_name=getenv('JAEGER_SERVICE_NAME', __name__))
 jaeger_tracer = config.initialize_tracer()
 tracing = FlaskTracing(jaeger_tracer, True, application, [])
 
