@@ -1,4 +1,5 @@
 gunicorn
 Flask
+Flask-Opentracing
 flask-restful-swagger
 gevent
