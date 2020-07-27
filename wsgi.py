@@ -1,9 +1,20 @@
+import socket
 from flask import Flask, render_template
 from flask_restful import Api, Resource, fields, marshal_with
 from flask_restful_swagger import swagger
-import socket
+from flask_opentracing import FlaskTracing
+from jaeger_client import Config
+from os import getenv
 
 application = Flask(__name__)
+
+config = Config(config={'sampler': {'type': 'const', 'param': 1},
+                                'logging': True,
+                                'local_agent':
+                                {'reporting_host': getenv('JAEGER_HOST', 'localhost')}},
+                service_name=__name__)
+jaeger_tracer = config.initialize_tracer()
+tracing = FlaskTracing(jaeger_tracer, True, application, [optional_args])
 
 api = swagger.docs(Api(application), apiVersion='0.1',
                    basePath='http://localhost:8080',
