@@ -1,9 +1,7 @@
 import os
 
 access_logfile = None
-workers = int(os.environ.get('GUNICORN_PROCESSES', '3'))
-worker_class = os.environ.get('GUNICORN_WORKER_CLASS', 'sync')
-threads = int(os.environ.get('GUNICORN_THREADS', '1'))
+worker_class = os.environ.get('GUNICORN_WORKER_CLASS', 'gevent')
 
 forwarded_allow_ips = '*'
 secure_scheme_headers = { 'X-Forwarded-Proto': 'https' }
